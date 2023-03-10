@@ -10,23 +10,54 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 
+// create new branch, check branch status (git status, git branch), make changes, test, add and commit locally, push to remote
 export default class CreateRoomPage extends Component {
   constructor(props) {
     super(props);
+    this.state={
+      guest_can_pause: true,
+      votes_to_skip: 1,
+    }
     this.handleRoomButtonPressed=this.handleRoomButtonPressed.bind(this)
+    this.handleGuestsCanPause=this.handleGuestsCanPause.bind(this)
+    this.handleVotesChanged=this.handleVotesChanged.bind(this)
   }
-  handleVotesChanged() {
+  handleVotesChanged(event) {
     console.log("votes button clicked")
+    console.log(event.target.value)
+    this.setState({
+      votes_to_skip:event.target.value
+    })
+
+    // use state
   }
-  handleGuestsCanPause() {
+  handleGuestsCanPause(event) {
     console.log("guest button clicked")
+    console.log(event.target.value)
+    this.setState({
+      guest_can_pause:event.target.value
+    })
+    // const [guest, setGuest] = useState(0);
+    // return (
+    //   setGuest(guest + 1)
+    // );
+
+    // use state
   }
   handleRoomButtonPressed() {
     console.log("button pressed")
 
     let body = JSON.stringify({
-      votes_to_skip: 3,
-      guest_can_pause: true,
+      votes_to_skip: this.state.votes_to_skip,
+      // from state
+      guest_can_pause: this.state.guest_can_pause,
+      // if (guest % 2==0) {
+      //   guest_can_pause = true;
+      // }
+      // else {
+      //   guest_can_pause=false;
+      // }
+      // from state
     })
     let requestOptions = {
       method: 'POST',
@@ -98,3 +129,5 @@ export default class CreateRoomPage extends Component {
   }
 }
 // radio group, form control label, button
+
+// static welcome to room page, shows info
