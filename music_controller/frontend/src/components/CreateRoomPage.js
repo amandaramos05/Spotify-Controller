@@ -73,6 +73,7 @@ export default class CreateRoomPage extends Component {
       })
       .then(data => {
         console.log(data)
+        this.props.history.push("/room/" + data.code)
       })
   }
   render() {
