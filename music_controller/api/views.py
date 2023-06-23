@@ -4,6 +4,7 @@ from .serializers import RoomSerializer, CreateRoomSerializer
 from .models import Room
 from rest_framework.views import APIView
 from rest_framework.response import Response
+import json
 
 # Create your views here.
 
@@ -43,6 +44,26 @@ class CreateRoomView(APIView):
                 return Response(RoomSerializer(room).data, status=status.HTTP_201_CREATED)
 
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
+    
+class JoinRoomView(APIView):
+    def post(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+        print("got post request JoinRoomView")
+        room_code_data = json.loads(request.body)
+        code = room_code_data['code']
+        if code != None:
+            print(room_code_data)
+            room = Room.objects.filter(code=code)
+            if len(room) == 1:
+                self.request.session['room_code'] = code
+                # join the room
+                return Response({'Message': 'Joined Room'},status=status.HTTP_200_OK)
+            return Response({'Message': 'Invalid Room Code.'}, status=status.HTTP_404_NOT_FOUND)
+
+        else:
+            return Response({'Message': 'No Code Entered.'}, status=status.HTTP_404_NOT_FOUND)
+    
 
 class GetRoom(APIView):
     serializer_class = RoomSerializer
