@@ -123,7 +123,7 @@ export default class CreateRoomPage extends Component {
           <Button variant="contained" onClick={this.handleRoomButtonPressed}>Create A Room</Button>
         </Grid>
         <Grid item xs={12} align = "center">
-          <Button variant="contained" color="error">Back</Button>
+          <Button href="/" variant="contained" color="error">Back</Button>
         </Grid>
     </Grid>
     );

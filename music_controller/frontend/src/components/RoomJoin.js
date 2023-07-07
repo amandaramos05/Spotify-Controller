@@ -87,7 +87,7 @@ handleRoomCodeChange(event) {
           <Button variant="contained" onClick={this.handleJoinRoomButtonPressed}>Join Room</Button>
         </Grid>
         <Grid item xs={12} align = "center">
-          <Button variant="contained" color="error">Back</Button>
+          <Button href="/" variant="contained" color="error">Back</Button>
         </Grid>
         
       </Grid>
